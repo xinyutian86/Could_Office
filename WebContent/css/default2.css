@@ -1,0 +1,42 @@
+.hs-wap-main {
+	background-image: url("../img/main-bg2.png");	
+	background-repeat: no-repeat;
+	background-size:18.09375rem 17rem;
+	background-color: #FFFFFF;
+	padding-top: 0.5625rem;
+	padding-left: 0.5625rem;
+	background-origin: content-box;
+}
+
+.hs-main-list {
+	margin-left: 1.9375rem;
+}
+
+.hs-main-list .hs-list-item {
+	float: left;
+	text-align: center;
+	width: 6rem;
+	height: 5.625rem;
+	display: -webkit-box;
+ -webkit-box-pack: center;
+  -webkit-box-align: center;
+}
+
+.hs-list-item .hs-item-link {
+	display: block;
+}
+
+.hs-item-link .hs-item-img {
+	height: 1.71875rem;
+}
+
+.hs-item-link .hs-item-title {
+	display: block;
+	color: #58595b;
+	font-size: 0.8125rem;
+	margin-top: 0.875rem;
+}
+
+.hs-main-list li:nth-child(3n){
+	width: 5.5rem;
+}

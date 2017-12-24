@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>用户注册</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="stylesheet" href="amazeui/css/amazeui.min.css" />
+<link rel="stylesheet" href="default/style.css" />
+<script src="amazeui/js/jquery.min.js"></script>
+<script src="js/jquery-3.2.1.min.js" type="text/javascript"
+	charset="utf-8"></script>
+<script src="amazeui/js/amazeui.min.js"></script>
+<script src="js/back.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("input#username").focus(function() {
+			$("input#username").css("background-color", "#FFFFCC");
+		});
+		$("input#username").blur(function() {
+			//$("input#username").css("background-color", "#D6D6FF");
+			var username = document.getElementById("username").value;
+			//alert(username);
+			//首先创建精灵对象  
+			createXmlHttpRequest();
+			//指明准备状态改变时回调的函数名  
+			xmlHttpReq.onreadystatechange = handle2;
+			//尝试以异步的get方式访问某个URL  
+			//请求服务器端的一个servlet  
+			var url = "find.jsp?username=" + username;
+			xmlHttpReq.open("get", url, true);
+			//向服务器发送请求  
+			xmlHttpReq.send(null);
+		});
+	});
+</script>
+<script>
+	var xmlHttpReq;
+	//创建一个XmlHttpRequest对象  
+	function createXmlHttpRequest() {
+		if (window.XMLHttpRequest) {
+			xmlHttpReq = new XMLHttpRequest();//非IE浏览器  
+		} else {
+			xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");//IE浏览器  
+		}
+	}
+	//检测用户名是否已经被注册  
+	function checkUser() {
+		var username = document.getElementById("username").value;
+		var password = document.getElementById("password").value;
+		var repass = document.getElementById("repass").value;
+		var email = document.getElementById("email").value;
+		var phone = document.getElementById("phone").value;
+		var ck = document.getElementById("ck");
+		if (username == "" || password == "" || email == "" || phone == "") {
+			alert("请确认信息输入完整！");
+			return false;
+		} else if (password != repass) {
+			alert("请确两次密码输入一致！");
+			return false;
+		} else if (!ck.checked) {
+			alert("请同意《协议》！");
+			return false;
+		}
+	}
+	function handle2() {
+		//准备状态为4  
+		if (xmlHttpReq.readyState == 4) {
+			//响应状态码为200，代表一切正常  
+			if (xmlHttpReq.status == 200) {
+				var res = xmlHttpReq.responseText;
+				//alert(res);
+				var res = xmlHttpReq.responseText;
+				//alert(res);
+				if (res.indexOf("Ok") >= 0) {
+					alert("用户名可用");
+				} else {
+					//alert(res.indexOf("Su"));
+					alert("用户名已被占用");
+				}
+			}
+		}
+	}
+</script>
+</head>
+<body>
+	<div class="container">
+		<header data-am-widget="header"
+			class="am-header am-header-default my-header">
+			<h1 class="am-header-title">
+				<a href="#title-link" class="">用户注册</a>
+			</h1>
+		</header>
+		<div class="cart-panel">
+			<form method="post" action="register.jsp" class="am-form" id="myform">
+				<div class="am-form-group am-form-icon">
+					<i class="am-icon-user" style="color: #329cd9"></i> <input
+						type="text" id="username" name="username" class="am-form-field  my-radius"
+						placeholder="请输入您的用户名">
+				</div>
+				<div class="am-form-group am-form-icon">
+					<i class="am-icon-lock" style="color: #329cd9"></i> <input
+						type="password" id="password" name="password" class="am-form-field  my-radius"
+						placeholder="请输入您的密码 ">
+				</div>
+				<div class="am-form-group am-form-icon">
+					<i class="am-icon-lock" style="color: #e9c740"></i> <input
+						type="password" id="repass" class="am-form-field  my-radius"
+						placeholder="请重复输入一次密码">
+				</div>
+				<div class="am-form-group am-form-icon">
+					<i class="am-icon-phone" style="color: #f09513"></i> <input
+						type="text" id="phone" name="phone" class="am-form-field  my-radius"
+						placeholder="请输入联系电话">
+				</div>
+				<div class="am-checkbox">
+					<label> <input type="checkbox" id="ck"> 我已阅读并同意<a
+						href="#">《协议》</a>
+					</label>
+				</div>
+				<p class="am-text-center">
+					<button onclick="checkUser()" type="submit"
+						class="am-btn am-btn-danger am-radius am-btn-block">立即注册</button>
+				</p>
+			</form>
+		</div>
+		<footer data-am-widget="footer" class="am-footer am-footer-default"
+			data-am-footer="{  }">
+			<hr data-am-widget="divider" style=""
+				class="am-divider am-divider-default" />
+			<div class="am-footer-miscs ">
+				<p>CopyRight©2017</p>
+				<!--<p>京ICP备13033158</p>-->
+			</div>
+		</footer>
+	</div>
+</body>
+
+</html>
